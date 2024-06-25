@@ -10,7 +10,7 @@ const Footer = () => {
           <img src="/svg/Textlogo02.svg" alt="logo" className="w-[150px]" />
         </Link>
         <p className="text-xs text-muted-foreground">
-          &copy; 2024 ChessableLK Inc. All rights reserved.
+          &copy; 2024 Oshan Avishka. All rights reserved.
         </p>
       </div>
     </footer>
