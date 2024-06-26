@@ -53,7 +53,7 @@ export default function LandingPage() {
           </div>
           <div className="relative hidden w-1/2 md:block">
             <img
-              src="https://www.chessable.com/public-webflow-react/landing/Hero-Image-1200px.webp"
+              src="/img/landingImg.webp"
               alt="Chess Mastery"
               className="object-cover p-5"
             />
