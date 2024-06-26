@@ -10,7 +10,7 @@ const AuthLayout = ({
 }>) => {
   return (
     <main>
-      <Toaster />
+      <Toaster richColors position="top-center" />
       <nav className="flex justify-center md:justify-start px-5 py-3 items-center bg-chess_blue">
         <Link href={"/"}>
           <img src="/svg/Textlogo03.svg" alt="logo" className="w-[210px]" />

@@ -1,35 +1,51 @@
 /* eslint-disable @next/next/no-img-element */
-
+"use client";
 import Link from "next/link";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
+import { auth } from "@/lib/firebaseConfig";
+import Profile from "@/components/sub/Profile";
 
 export default function LandingPage() {
+  const [isAuth, setIsAuth] = useState(false);
+
+  useEffect(() => {
+    const unsubscribe = auth.onAuthStateChanged((user: any) => {
+      if (user) {
+        setIsAuth(true);
+      }
+    });
+    return () => unsubscribe();
+  }, []);
+
   return (
     <>
       <nav className="flex justify-between px-3 md:px-10 py-3 items-center">
         <Link href={"/"}>
           <img src="/svg/Textlogo01.svg" alt="logo" className="w-[210px]" />
         </Link>
-        <div className="flex gap-2">
-          <Link href={"/auth/sign-up"}>
-            {" "}
-            <Button
-              variant="secondary"
-              className="font-semibold hover:bg-chess_blue/75 hover:text-white hidden md:block"
-            >
-              Sign up
-            </Button>
-          </Link>
-          <Link href={"/auth/login"}>
-            <Button
-              variant="secondary"
-              className="font-semibold hover:bg-chess_blue/75 hover:text-white"
-            >
-              Log in
-            </Button>
-          </Link>
-        </div>
+        {isAuth ? (
+          <Profile />
+        ) : (
+          <div className="flex gap-2">
+            <Link href={"/auth/sign-up"}>
+              <Button
+                variant="secondary"
+                className="font-semibold hover:bg-chess_blue/75 hover:text-white hidden md:block"
+              >
+                Sign up
+              </Button>
+            </Link>
+            <Link href={"/auth/login"}>
+              <Button
+                variant="secondary"
+                className="font-semibold hover:bg-chess_blue/75 hover:text-white"
+              >
+                Log in
+              </Button>
+            </Link>
+          </div>
+        )}
       </nav>
       <section className="w-full min-h-screen">
         <div className="flex min-h-[100dvh] w-full">
@@ -45,7 +61,7 @@ export default function LandingPage() {
               interactive lessons, and elevate your game to grandmaster level.
             </p>
             <Link
-              href="/home"
+              href={isAuth ? "/home" : "/auth/login"}
               className="bg-chess_blue text-white py-2 px-4 rounded-md font-semibold"
             >
               Start to Learning

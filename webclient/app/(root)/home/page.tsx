@@ -1,11 +1,12 @@
-import React from 'react'
+import AuthRouter from "@/components/sub/AuthRouter";
+import React from "react";
 
 const HomePage = () => {
   return (
-    <section className="w-full min-h-screen">
-        
-    </section>
-  )
-}
+    <AuthRouter>
+      <section className="w-full min-h-screen"></section>
+    </AuthRouter>
+  );
+};
 
-export default HomePage
+export default HomePage;
