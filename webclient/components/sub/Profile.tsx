@@ -1,6 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
-import React, { useEffect, useState } from "react";
 import {
   DropdownMenu,
   DropdownMenuTrigger,
@@ -9,27 +8,17 @@ import {
   DropdownMenuSeparator,
 } from "@/components/ui/dropdown-menu";
 import { BookMarked, LogOutIcon, UserIcon } from "lucide-react";
-import { auth } from "@/lib/firebaseConfig";
+import { auth } from "@/firebase/firebaseConfig";
 import { toast } from "sonner";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-
-type Idata = {
-  email: string | null;
-  pic: string | null;
-};
+import { useAuthState } from "react-firebase-hooks/auth";
 
 const Profile = () => {
-  const [data, setData] = useState<Idata | null>(null);
-  useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged((user: any) => {
-      setData({ email: user?.email, pic: user?.photoURL });
-    });
-
-    return () => unsubscribe();
-  }, []);
+  const [user] = useAuthState(auth);
 
   const handleLogout = () => {
     auth.signOut();
+    sessionStorage.removeItem("user")
     toast.info("Logged out");
   };
 
@@ -37,8 +26,8 @@ const Profile = () => {
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Avatar>
-          <AvatarImage src={data?.pic || ""} alt="@shadcn" />
-          <AvatarFallback>{data?.email?.slice(0, 2)}</AvatarFallback>
+          <AvatarImage src={user?.photoURL || ""} alt="@shadcn" />
+          <AvatarFallback>{user?.email?.slice(0, 2)}</AvatarFallback>
         </Avatar>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">

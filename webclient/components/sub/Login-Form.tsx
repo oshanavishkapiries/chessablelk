@@ -6,9 +6,9 @@ import { Button } from "@/components/ui/button";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { signInWithEmailAndPassword } from "firebase/auth";
-import { auth } from "@/lib/firebaseConfig";
+import { auth } from "@/firebase/firebaseConfig";
 import { toast } from "sonner";
-import { firebaseError } from "@/utils/firebaseError";
+import { firebaseError } from "@/firebase/firebaseError";
 import { AuthDataTypes, AuthSchema } from "@/constant/zodvalidation";
 import { useRouter } from "next/navigation";
 
@@ -30,6 +30,7 @@ const LoginForm = () => {
           loading: "Loging ...",
           success: () => {
             setTimeout(() => {
+              sessionStorage.setItem('user', 'true');
               router.push("/home");
             }, 1500);
             return "Login successfully";

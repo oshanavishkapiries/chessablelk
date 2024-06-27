@@ -1,27 +1,45 @@
 "use client";
-import { auth } from "@/lib/firebaseConfig";
+
+import { auth } from "@/firebase/firebaseConfig";
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect } from "react";
+import { useAuthState } from "react-firebase-hooks/auth";
+import Loader from "@/components/sub/Loader";
 
-const AuthRouter = ({
-  children,
-}: Readonly<{
+interface AuthRouterProps {
   children: React.ReactNode;
-}>) => {
+}
+
+const AuthRouter: React.FC<AuthRouterProps> = ({ children }) => {
   const router = useRouter();
   const pathname = usePathname();
+  const [user, loading] = useAuthState(auth);
 
   useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged((user: any) => {
-      if (!user) {
+    const checkAuth = () => {
+      const userSession = sessionStorage.getItem("user");
+
+      if (!user || !userSession) {
         router.push("/");
       }
-    });
+    };
 
-    return () => unsubscribe();
-  }, [pathname, router]);
+    if (!loading) {
+      checkAuth();
+    }
+  }, [user, loading, router, pathname]);
 
-  return <>{children}</>;
+  return (
+    <>
+      {user ? (
+        children
+      ) : (
+        <section className="w-full min-h-screen flex justify-center items-center">
+          <Loader size="200px" />
+        </section>
+      )}
+    </>
+  );
 };
 
 export default AuthRouter;

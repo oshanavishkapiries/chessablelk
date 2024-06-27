@@ -3,20 +3,12 @@
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
-import { auth } from "@/lib/firebaseConfig";
+import { auth } from "@/firebase/firebaseConfig";
 import Profile from "@/components/sub/Profile";
+import { useAuthState } from "react-firebase-hooks/auth";
 
 export default function LandingPage() {
-  const [isAuth, setIsAuth] = useState(false);
-
-  useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged((user: any) => {
-      if (user) {
-        setIsAuth(true);
-      }
-    });
-    return () => unsubscribe();
-  }, []);
+  const [user] = useAuthState(auth);
 
   return (
     <>
@@ -24,7 +16,7 @@ export default function LandingPage() {
         <Link href={"/"}>
           <img src="/svg/Textlogo01.svg" alt="logo" className="w-[210px]" />
         </Link>
-        {isAuth ? (
+        {user ? (
           <Profile />
         ) : (
           <div className="flex gap-2">
@@ -61,7 +53,7 @@ export default function LandingPage() {
               interactive lessons, and elevate your game to grandmaster level.
             </p>
             <Link
-              href={isAuth ? "/home" : "/auth/login"}
+              href={user ? "/home" : "/auth/login"}
               className="bg-chess_blue text-white py-2 px-4 rounded-md font-semibold"
             >
               Start to Learning

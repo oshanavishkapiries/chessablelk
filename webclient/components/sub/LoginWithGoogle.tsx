@@ -4,10 +4,13 @@ import React from "react";
 import { Button } from "../ui/button";
 import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import { toast } from "sonner";
-import { auth } from "@/lib/firebaseConfig";
-import { firebaseError } from "@/utils/firebaseError";
+import { auth } from "@/firebase/firebaseConfig";
+import { firebaseError } from "@/firebase/firebaseError";
+import { useRouter } from "next/navigation";
+
 
 const LoginWithGoogle = (props: any) => {
+  const router = useRouter();
   const handleClick = async () => {
     const provider = new GoogleAuthProvider();
     try {
@@ -15,7 +18,7 @@ const LoginWithGoogle = (props: any) => {
         loading: "Logging...",
         success: () => {
           setTimeout(() => {
-            window.location.href = "/home";
+            router.push("/home");
           }, 1500);
           return "Login successfully";
         },
