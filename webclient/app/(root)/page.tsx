@@ -1,7 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
 import Link from "next/link";
-import React, { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { auth } from "@/firebase/firebaseConfig";
 import Profile from "@/components/sub/Profile";

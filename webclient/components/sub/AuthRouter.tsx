@@ -1,10 +1,10 @@
+/* eslint-disable @next/next/no-img-element */
 "use client";
 
 import { auth } from "@/firebase/firebaseConfig";
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
-import Loader from "@/components/sub/Loader";
 
 interface AuthRouterProps {
   children: React.ReactNode;
@@ -17,9 +17,7 @@ const AuthRouter: React.FC<AuthRouterProps> = ({ children }) => {
 
   useEffect(() => {
     const checkAuth = () => {
-      const userSession = sessionStorage.getItem("user");
-
-      if (!user || !userSession) {
+      if (!user) {
         router.push("/");
       }
     };
@@ -35,7 +33,7 @@ const AuthRouter: React.FC<AuthRouterProps> = ({ children }) => {
         children
       ) : (
         <section className="w-full min-h-screen flex justify-center items-center">
-          <Loader size="200px" />
+          <img src="/lottie/loader.gif" width="200px" height="200px" alt="loader" />
         </section>
       )}
     </>

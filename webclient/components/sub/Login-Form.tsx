@@ -30,7 +30,6 @@ const LoginForm = () => {
           loading: "Loging ...",
           success: () => {
             setTimeout(() => {
-              sessionStorage.setItem('user', 'true');
               router.push("/home");
             }, 1500);
             return "Login successfully";

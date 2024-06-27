@@ -18,7 +18,6 @@ const Profile = () => {
 
   const handleLogout = () => {
     auth.signOut();
-    sessionStorage.removeItem("user")
     toast.info("Logged out");
   };
 
