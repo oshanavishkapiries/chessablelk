@@ -18,14 +18,14 @@ const HomeCard = () => {
           height={400}
           className="h-48 w-full object-cover"
         />
-        {/* <Button
+        <Button
           variant="ghost"
           size="icon"
           className="absolute top-2 right-2 z-10 rounded-full"
         >
           <BookmarkIcon className="h-5 w-5" />
           <span className="sr-only">Bookmark</span>
-        </Button> */}
+        </Button>
       </div>
       <div className="p-4">
         <div className="mb-2 flex items-center gap-2">
@@ -45,10 +45,10 @@ const HomeCard = () => {
         <h3 className="mb-2 text-lg font-semibold">
           Introducing the Latest Trends in Web Development
         </h3>
-        {/* <div className="flex items-center gap-2 text-sm text-muted-foreground">
+        <div className="flex items-center gap-2 text-sm text-muted-foreground">
           <EyeIcon className="h-4 w-4" />
           <span>1.2K views</span>
-        </div> */}
+        </div>
       </div>
     </div>
   );

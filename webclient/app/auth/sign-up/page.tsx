@@ -2,6 +2,7 @@
 import React from "react";
 import AuthForm from "@/components/sub/Sign-Up-Form";
 import LoginWithGoogle from "@/components/sub/LoginWithGoogle";
+import Link from "next/link";
 
 const SignUp = () => {
   return (
@@ -17,6 +18,13 @@ const SignUp = () => {
             </div>
             <AuthForm />
             <LoginWithGoogle title="Sign Up with Google" />
+            <div className="flex flex-col items-center justify-center">
+              <Link href="/auth/login">
+                <p className="text-chess_blue hover:text-chess_blue/75">
+                  You all ready have an account ?
+                </p>
+              </Link>
+            </div>
           </div>
         </div>
         <div className="relative hidden lg:block">
